@@ -77,6 +77,12 @@ def main():
     cv.waitKey()
 
     print('Done')
+    dispGT = cv.imread('disp2.png', cv.IMREAD_GRAYSCALE)/4
+
+    # Compute error
+    mask = (dispGT > 0) & (disp > 0)
+    error = np.abs(disp[mask] - dispGT[mask])
+    print('Mean Absolute Error: %.2f' % np.mean(error))
 
 
 if __name__ == '__main__':

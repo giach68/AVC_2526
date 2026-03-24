@@ -48,10 +48,15 @@ def main():
     cv.imshow('disparity', disp_vis)
     cv.waitKey()
 
+    dispGT = cv.imread('disp2.png', cv.IMREAD_GRAYSCALE)/4
 
-
-
-
+    # Compute error
+    mask = (dispGT > 0)
+    error = np.abs(disparity[mask] - dispGT[mask])
+    errmap = np.abs(disparity - dispGT)
+    print('Median Absolute Error: %.2f' % np.median(error))
+    cv.imshow('left', errmap/np.max(errmap))
+    cv.waitKey()
 
     print('Done')
 
