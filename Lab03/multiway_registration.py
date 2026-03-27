@@ -74,7 +74,7 @@ def full_registration(pcds, max_correspondence_distance_coarse,
 if __name__ == "__main__":
     voxel_size = 0.02
     pcds_down = load_point_clouds(voxel_size)
-    o3d.visualization.draw(pcds_down)
+    o3d.visualization.draw_geometries(pcds_down)
 
     print("Full registration ...")
     max_correspondence_distance_coarse = voxel_size * 15
@@ -102,4 +102,4 @@ if __name__ == "__main__":
     for point_id in range(len(pcds_down)):
         print(pose_graph.nodes[point_id].pose)
         pcds_down[point_id].transform(pose_graph.nodes[point_id].pose)
-    o3d.visualization.draw(pcds_down)
+    o3d.visualization.draw_geometries(pcds_down)

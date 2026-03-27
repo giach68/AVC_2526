@@ -17,7 +17,7 @@ def draw_registration_result(source, target, transformation):
     source_temp.paint_uniform_color([1, 0.706, 0])
     target_temp.paint_uniform_color([0, 0.651, 0.929])
     source_temp.transform(transformation)
-    o3d.visualization.draw([source_temp, target_temp])
+    o3d.visualization.draw_geometries([source_temp, target_temp])
     
 
 
@@ -29,7 +29,7 @@ def point_to_point_icp(source, target, threshold, trans_init):
     print(reg_p2p)
     print("Transformation is:")
     print(reg_p2p.transformation, "\n")
-    #draw_registration_result(source, target, reg_p2p.transformation)
+    draw_registration_result(source, target, reg_p2p.transformation)
     source_temp = copy.deepcopy(source)
     source_temp.transform(reg_p2p.transformation)
     return source_temp
@@ -42,7 +42,7 @@ def point_to_plane_icp(source, target, threshold, trans_init):
     print(reg_p2l)
     print("Transformation is:")
     print(reg_p2l.transformation, "\n")
-    #draw_registration_result(source, target, reg_p2l.transformation)
+    draw_registration_result(source, target, reg_p2l.transformation)
     source_temp = copy.deepcopy(source)
     source_temp.transform(reg_p2l.transformation)
     return source_temp
@@ -53,11 +53,13 @@ if __name__ == "__main__":
     target = o3d.io.read_point_cloud(pcd_data.paths[1])
     
 
-    threshold = 0.01
+    threshold = 0.05  # 5cm distance threshold, adjust based on your dataset
     trans_init = np.identity(4)
-    #trans_init = np.asarray([[0.862, 0.011, -0.507, 0.5],
-    #                         [-0.139, 0.967, -0.215, 0.7],
-    #                         [0.487, 0.255, 0.835, -1.4], [0.0, 0.0, 0.0, 1.0]])
+    # need to apply a rough initial transformation to make sure the point clouds are roughly aligned
+    # if not prealigned, it does not converge, and the result is not good. The initial transformation is estimated by manual alignment in this example.
+    trans_init = np.asarray([[0.862, 0.011, -0.507, 0.5],
+                             [-0.139, 0.967, -0.215, 0.7],
+                             [0.487, 0.255, 0.835, -1.4], [0.0, 0.0, 0.0, 1.0]])
     draw_registration_result(source, target, trans_init)
     
     print("Initial alignment")
