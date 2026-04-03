@@ -69,12 +69,12 @@ def icp(source, target):
 demo_icp_pcds = o3d.data.DemoICPPointClouds()
 source = o3d.io.read_point_cloud(demo_icp_pcds.paths[0])
 target = o3d.io.read_point_cloud(demo_icp_pcds.paths[1])
-#source = o3d.io.read_point_cloud("apple_4_4_201.pcd")
-#target = o3d.io.read_point_cloud("apple_4_4_203.pcd")
 
    
 o3d.io.write_point_cloud("source.ply", source)
 o3d.io.write_point_cloud("target.ply", target)
+
+o3d.visualization.draw_geometries([source, target])
 
 transform = icp(source, target)
 source.transform(transform)

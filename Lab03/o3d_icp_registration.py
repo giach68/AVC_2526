@@ -57,9 +57,9 @@ if __name__ == "__main__":
     trans_init = np.identity(4)
     # need to apply a rough initial transformation to make sure the point clouds are roughly aligned
     # if not prealigned, it does not converge, and the result is not good. The initial transformation is estimated by manual alignment in this example.
-    trans_init = np.asarray([[0.862, 0.011, -0.507, 0.5],
-                             [-0.139, 0.967, -0.215, 0.7],
-                             [0.487, 0.255, 0.835, -1.4], [0.0, 0.0, 0.0, 1.0]])
+    #trans_init = np.asarray([[0.862, 0.011, -0.507, 0.5],
+    #                        # [-0.139, 0.967, -0.215, 0.7],
+    #                         [0.487, 0.255, 0.835, -1.4], [0.0, 0.0, 0.0, 1.0]])
     draw_registration_result(source, target, trans_init)
     
     print("Initial alignment")

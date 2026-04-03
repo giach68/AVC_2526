@@ -46,7 +46,7 @@ if __name__ == "__main__":
     print(
         "Displaying original source and target point cloud with initial transformation:"
     )
-    draw_registration_result(source, target, trans_init)
+   # draw_registration_result(source, target, trans_init)
 
  
     threshold = 1.0
